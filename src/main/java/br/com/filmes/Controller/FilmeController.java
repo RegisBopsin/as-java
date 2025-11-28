@@ -1,51 +1,31 @@
-package br.com.filmes.Controller;
-import br.com.filmes.entities.Filme;
+package br.com.filmes.controllers;
+
+import br.com.filmes.dto.filme.*;
 import br.com.filmes.services.FilmeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-@RestController //indica pro spring que é uma controller
-@RequestMapping("/filmes") //indica pro spring que vamos usar /filmes na rota
+@RestController
+@RequestMapping("/filmes")
+@RequiredArgsConstructor
 public class FilmeController {
 
-    @Autowired //que é isso meu deus do céu
-    private FilmeService service;
+    private final FilmeService filmeService;
 
-//POST
-    @PostMapping
-    public List<Filme> criarFilmesEmLote(@RequestBody List<Filme> listaFilmes) {
-        return service.adicionarFilmesEmLote(listaFilmes);
-    }
-
-//LISTAR TUDO
     @GetMapping
-    public List<Filme> listarFilmes() {
-        return service.listarFilmes();
+    public List<FilmeResponseDTO> listar() {
+        return filmeService.listar();
     }
 
-//LISTAR POR ID
-    @GetMapping("/{id}")
-    public Filme buscarPorId(@PathVariable int id) {
-        return service.buscarPorId(id);
+    @PostMapping
+    public FilmeResponseDTO criar(@RequestBody FilmeDTO dto) {
+        return filmeService.criar(dto);
     }
 
-//PUT
-    @PutMapping("/{id}")
-    public Filme atualizarFilme(@PathVariable int id, @RequestBody Filme novoFilme) {
-        return service.atualizarFilme(id, novoFilme);
-    } //PatVariable passa a URL como parametro, RequestBody pega o Json e transforma pra java
-
-//DELETE
     @DeleteMapping("/{id}")
-    public String removerFilme(@PathVariable int id) {
-        boolean deletado = service.removerFilme(id);
-
-        if (deletado) {
-            return "Filme deletado!";
-        } else {
-            return "Filme não encontrado.";
-        }
+    public void deletar(@PathVariable Long id) {
+        filmeService.deletar(id);
     }
-
 }

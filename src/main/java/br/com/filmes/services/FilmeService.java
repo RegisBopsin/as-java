@@ -1,46 +1,51 @@
 package br.com.filmes.services;
+
+import br.com.filmes.dto.filme.*;
+import br.com.filmes.entities.Diretor;
 import br.com.filmes.entities.Filme;
+import br.com.filmes.repositories.DiretorRepository;
+import br.com.filmes.repositories.FilmeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 
-@Service //indica pro spring que é service
+@Service
+@RequiredArgsConstructor
 public class FilmeService {
 
-    private final List<Filme> filmes = new ArrayList<>();
+    private final FilmeRepository filmeRepository;
+    private final DiretorRepository diretorRepository;
 
-//CREATE
-    public List<Filme> adicionarFilmesEmLote(List<Filme> listaFilmes) {
-        filmes.addAll(listaFilmes);
-        return listaFilmes;
+    public List<FilmeResponseDTO> listar() {
+        return filmeRepository.findAll()
+                .stream()
+                .map(f -> {
+                    FilmeResponseDTO dto = new FilmeResponseDTO();
+                    dto.setId(f.getId());
+                    dto.setTitulo(f.getTitulo());
+                    dto.setDiretorNome(f.getDiretor().getNome());
+                    return dto;
+                })
+                .toList();
     }
 
-//LISTAGEM DE TODOS
-    public List<Filme> listarFilmes() {
-        return filmes;
+    public FilmeResponseDTO criar(FilmeDTO dto) {
+        Diretor diretor = diretorRepository.findById(dto.getDiretorId()).orElseThrow();
+
+        Filme filme = new Filme();
+        filme.setTitulo(dto.getTitulo());
+        filme.setDiretor(diretor);
+        filmeRepository.save(filme);
+
+        FilmeResponseDTO response = new FilmeResponseDTO();
+        response.setId(filme.getId());
+        response.setTitulo(filme.getTitulo());
+        response.setDiretorNome(diretor.getNome());
+        return response;
     }
 
-//LISTAGEM POR ID
-    public Filme buscarPorId(int id) {
-        return filmes.stream()
-                .filter(f -> f.getId() == id)
-                .findFirst()// retorna só o que passou no filtro por primeiro
-                .orElse(null);// caso contrario nao retorna nada
-    }
-
-//UPDATE
-    public Filme atualizarFilme(int id, Filme novoFilme) {
-        for (int i = 0; i < filmes.size(); i++) { //CONTA ATÉ O ID DESEJADO
-            if (filmes.get(i).getId() == id) { //PARA NO ID DESEJADO
-                filmes.set(i, novoFilme); //AJEITA O ID QUE PAROU
-                return novoFilme; //RETORNA O ID ATUALIZADO
-            } //SE TA TUDO CERTO PQ TA DANDO PROBLEMA?
-        }
-        return null;
-    }
-
-//DELETE
-    public boolean removerFilme(int id) {
-        return filmes.removeIf(f -> f.getId() == id);
+    public void deletar(Long id) {
+        filmeRepository.deleteById(id);
     }
 }
