@@ -1,5 +1,5 @@
-package br.com.filmes.Service;
-import br.com.filmes.Model.Filme;
+package br.com.filmes.services;
+import br.com.filmes.entities.Filme;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;

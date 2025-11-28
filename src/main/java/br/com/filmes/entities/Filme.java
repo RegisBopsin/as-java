@@ -1,4 +1,4 @@
-package br.com.filmes.Model;
+package br.com.filmes.entities;
 
 public class Filme {
     private int id;

@@ -1,6 +1,6 @@
 package br.com.filmes.Controller;
-import br.com.filmes.Model.Filme;
-import br.com.filmes.Service.FilmeService;
+import br.com.filmes.entities.Filme;
+import br.com.filmes.services.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
