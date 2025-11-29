@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "dd40aabb-e5c4-4990-893b-ff3dc32eaea5",
+		"name": "AP2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39554091"
+	},
+	"item": [
+		{
+			"name": "CRIAR",
+			"protocolProfileBehavior": {
+				"followRedirects": true,
+				"disableUrlEncoding": false,
+				"disableCookies": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.6.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n  \"id\": 1,\n  \"nome\": \"Rocky, um Lutador\",\n  \"diretor\": \"John G. Avildsen\",\n  \"anoLancamento\": 1976,\n  \"avaliacao\": 4\n\t},\n \n\t{\n  \"id\": 2,\n  \"nome\": \"Shrek\",\n  \"diretor\": \"Andrew Adamson\",\n  \"anoLancamento\": 2001,\n  \"avaliacao\": 10\n\t},\n\n\t{\n  \"id\": 3,\n  \"nome\": \"Era Uma Vez em Hollywood\",\n  \"diretor\": \"Quentin Tarantino\",\n  \"anoLancamento\": 2019,\n  \"avaliacao\": 7\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/filmes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filmes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LISTAR TUDO",
+			"protocolProfileBehavior": {
+				"followRedirects": true,
+				"disableUrlEncoding": false,
+				"disableCookies": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.6.1"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/filmes?=&=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filmes"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LISTAR POR ID",
+			"protocolProfileBehavior": {
+				"followRedirects": true,
+				"disableUrlEncoding": false,
+				"disableCookies": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.6.1"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/filmes/3?=&=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filmes",
+						"3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ATUALIZAR",
+			"protocolProfileBehavior": {
+				"followRedirects": true,
+				"disableUrlEncoding": false,
+				"disableCookies": false
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.6.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 3,\n\t\"nome\": \"Era Uma Vez em Hollywood\",\n\t\"diretor\": \"Regis\",\n\t\"anoLancamento\": 2025,\n\t\"avaliacao\": 7\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/filmes/3?=&=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filmes",
+						"3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETAR",
+			"protocolProfileBehavior": {
+				"followRedirects": true,
+				"disableUrlEncoding": false,
+				"disableCookies": false
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/11.6.1"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/filmes/3?=&=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"filmes",
+						"3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						},
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
