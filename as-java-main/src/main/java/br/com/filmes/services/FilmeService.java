@@ -42,10 +42,11 @@ public class FilmeService {
         return toResponseDTO(filme);
     }
 
-    // POST (criar)
+    // POST (criar) - MENSAGEM DE ERRO que o Diretor não existe
     public FilmeResponseDTO criar(FilmeDTO dto) {
         Diretor diretor = diretorRepository.findById(dto.getDiretorId())
-                .orElseThrow(() -> new RuntimeException("Diretor não encontrado!"));
+                // MENSAGEM pro requisito
+                .orElseThrow(() -> new RuntimeException("Diretor não existe. Não foi possível criar o filme."));
 
         Filme filme = new Filme();
         filme.setTitulo(dto.getTitulo());
@@ -55,10 +56,11 @@ public class FilmeService {
         return toResponseDTO(filmeSalvo);
     }
 
-    // PUT (editar) e resolve o erro no controller
+    // PUT (editar) - VALIDACAO DE "NAO ENCONTRADO"
     public FilmeResponseDTO atualizar(Long id, FilmeUpdateDTO dto) {
         Filme filme = filmeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Filme não encontrado para atualizar!"));
+                // MENSAGEM para "não encontrado para atualizar"
+                .orElseThrow(() -> new RuntimeException("Filme não encontrado para atualização!"));
 
         // att o Título (se for passado ne)
         if (dto.getTitulo() != null) {
@@ -77,15 +79,16 @@ public class FilmeService {
         return toResponseDTO(filmeAtualizado);
     }
 
-    // DELETE (remover)
-    public void deletar(Long id) {
-        // opção 1: só deleta, o JPA trata as chaves estrangeiras
-        filmeRepository.deleteById(id);
+    // DELETE (remover) - MENSAGEM DE SUCESSO E VALIDACAO DE "NAO ENCONTRADO"
+    public String deletar(Long id) { // <-- mudar o retorno de void pra string
+        Filme filme = filmeRepository.findById(id)
+                // MENSAGEM pra nao encontrado para deletar
+                .orElseThrow(() -> new RuntimeException("Filme não encontrado para exclusão!"));
 
-        // ppção 2 (mais topzera): ve se existe antes de deletar
-        // if (!filmeRepository.existsById(id)) {
-        //     throw new RuntimeException("Filme não encontrado para deletar!");
-        // }
-        // filmeRepository.deleteById(id);
+        String tituloFilme = filme.getTitulo();
+        filmeRepository.delete(filme);
+
+        // MENSAGEM de retorno de sucesso fama e gritaria
+        return "Filme '" + tituloFilme + "' excluído com sucesso.";
     }
 }

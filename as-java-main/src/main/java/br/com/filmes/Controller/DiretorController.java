@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -41,15 +43,28 @@ public class DiretorController {
         return diretorService.criar(dto);
     }
 
-    // PUT (editar)
+    // PUT (editar) - pra resolver o erro de diretor não encontrado (404 Not Found)
     @PutMapping("/{id}")
-    public DiretorResponseDTO atualizar(@PathVariable Long id, @RequestBody DiretorDTO dto) {
-        return diretorService.atualizar(id, dto);
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody DiretorDTO dto) {
+        try {
+            DiretorResponseDTO response = diretorService.atualizar(id, dto);
+            // to retornando o recurso atualizado com status 200 OK
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            // CASO E SE o diretor não for encontrado, vai retorna a mensagem com status 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
-    // DELETE (remover)
+    // DELETE (remover) - vai dar mensagem de sucesso (200 OK) ou erro (404 Not Found)
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        diretorService.deletar(id);
+    public ResponseEntity<String> deletar(@PathVariable Long id) { // mais uma vez mano vamo mudar o retorno para ResponseEntity<String>
+        try {
+            String mensagem = diretorService.deletar(id);
+            return ResponseEntity.ok(mensagem); // 200 OK com a mensagem de sucesso
+        } catch (RuntimeException e) {
+            // se não encontrar, retorna 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

@@ -62,10 +62,11 @@ public class DiretorService {
         return response;
     }
 
-    // PUT (editar)
+    // PUT (editar) - VALIDAÇÃO DE NAO ENCONTRADO
     public DiretorResponseDTO atualizar(Long id, DiretorDTO dto) {
         Diretor diretor = diretorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Diretor não encontrado para atualizar!"));
+                // MENSAGEM de nao o encontrado para atualizar
+                .orElseThrow(() -> new RuntimeException("Diretor não encontrado para atualização!"));
 
         // atualiza o nome se for passado (protegendo contra null)
         if (dto.getNome() != null) {
@@ -80,8 +81,16 @@ public class DiretorService {
         return response;
     }
 
-    // DELETE (remover)
-    public void deletar(Long id) {
-        diretorRepository.deleteById(id);
+    // DELETE (remover) - MENSAGEM DE SUCESSO E VALIDACAO DE NAO ENCONTRADO
+    public String deletar(Long id) { // tem que mudar o retorno de void para string aqui tb
+        Diretor diretor = diretorRepository.findById(id)
+                // MENSAGEM: pra nao encontrado pra deletar
+                .orElseThrow(() -> new RuntimeException("Diretor não encontrado para exclusão!"));
+
+        String nomeDiretor = diretor.getNome();
+        diretorRepository.delete(diretor);
+
+        // MENSAGEM sucesso
+        return "Diretor '" + nomeDiretor + "' excluído com sucesso.";
     }
 }

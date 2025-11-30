@@ -8,9 +8,21 @@
 	"item": [
 		{
 			"name": "getDiretor",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:8080/diretor",
 					"protocol": "http",
@@ -32,7 +44,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 1,\n  \"nome\": \"Heloisa\"\n}",
+					"raw": "{\n  \"id\": 3,\n  \"nome\": \"Francis Ford Copolla\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -139,7 +151,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"titulo\": \"paodibatata\",\n  \"diretorId\": 1\n}\n",
+					"raw": "{\n    \"titulo\": \"O poderoso chefão\",\n    \"diretorId\": 3\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,7 +179,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"titulo\": \"teste\",\n  \"novoDiretorId\": 1\n}",
+					"raw": "{\n  \"titulo\": \"abublublé\",\n  \"novoDiretorId\": 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -199,7 +211,7 @@
 					"raw": "{\n  \"titulo\": \"paodibatata\",\n  \"diretorId\": 1\n}\n"
 				},
 				"url": {
-					"raw": "http://localhost:8080/filme/1",
+					"raw": "http://localhost:8080/filme/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -207,7 +219,7 @@
 					"port": "8080",
 					"path": [
 						"filme",
-						"1"
+						"5"
 					]
 				}
 			},
