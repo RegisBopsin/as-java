@@ -17,10 +17,10 @@ O projeto conta com relacionamento One-To-Many baseado em diretores que podem te
 
 6 - Ao efetuar o login, clique em Add New Server, nomeie seu server e adicione as credenciais abaixo...
 
-HostName: pgadmin-as
-Database: meubanco
-User: postgres
-Senha: postgres
+HostName: pgadmin-as // 
+Database: meubanco // 
+User: postgres // 
+Senha: postgres 
 
 7 - Clique em "salvar", agora, rode a aplicação em seu Intellij.
 
